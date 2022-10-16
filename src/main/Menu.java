@@ -1,15 +1,22 @@
 package main;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Menu extends JFrame implements ActionListener{
+import MemberMenu.LoginGUI;
 
+public class Menu extends JFrame implements ActionListener{
+	
+	JPanel North=new JPanel();
+	JLabel NorthLB=new JLabel("æ»≥Á«œººø‰ πË¥ﬁ ΩπΩπ==3 ¿‘¥œ¥Ÿ ^*^");
+	
 	JPanel centerP=new JPanel();
 	JPanel centerP1=new JPanel();
 	JPanel centerP2=new JPanel();
@@ -26,21 +33,37 @@ public class Menu extends JFrame implements ActionListener{
 		centerP.add(centerP1);
 		centerP.add(centerP2);
 		
+		North.add(NorthLB);
 		
+		this.add(North, "North");
+		
+		member.setPreferredSize(new Dimension(200,150));
+		manager.setPreferredSize(new Dimension(200,150));
 		this.add(centerP, "Center");
 		
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		
+		member.addActionListener(this);
+		manager.addActionListener(this);
 	}
 	
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		Object temp=e.getSource();
+		if(temp.equals(member)) {
+			LoginGUI LGUI=new LoginGUI();
+			LGUI.viewFrame();
+			this.setVisible(false);
+		}else if(temp.equals(manager)) {
+			
+		}
 		
 	}
+
+
+
 	
 	
 }

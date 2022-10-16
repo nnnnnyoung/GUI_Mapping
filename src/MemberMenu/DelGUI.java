@@ -1,35 +1,62 @@
 package MemberMenu;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
-public class DelGUI extends JFrame  implements ActionListener{
+import DAO.Del_DAO;
+import DTO.Del_DTO;
+
+
+
+
+public class DelGUI extends JFrame  implements ActionListener,ItemListener{
 
 	JPanel north=new JPanel();
 	JPanel north1=new JPanel();
+	JPanel north2=new JPanel();
 	JLabel titleLB= new JLabel("배달슝슝==3");
 	
-	
+	JPanel center=new JPanel();
 	JPanel center1=new JPanel();
+	JPanel center2=new JPanel();
+	JPanel center2_1=new JPanel();
+	
 	JButton chicken=new JButton("치킨");
 	JButton pizza=new JButton("피자");
 	JButton cafe=new JButton("카페");
+	
+	
+	
+	
+	JLabel center_null=new JLabel("가게가 없어요ㅠ0ㅠ");
+	
 	
 	JPanel south=new JPanel();
 	JButton logout=new JButton("로그아웃");
 	JButton blist=new JButton("주문내역");
 	JButton basket=new JButton("장바구니");
 	
+	JButton buy=new JButton("주문하기");
 	
-	String id=null;
+	String id=null; //로그인 한 아이디 받아오기
+	Del_DAO DDAO=new Del_DAO();
 	
+	
+	List shopList = new List(10);
+	JTextArea shopinfo = new JTextArea(10,3);
 	
 	public DelGUI(String id) {
 		this.id=id;
@@ -40,27 +67,48 @@ public class DelGUI extends JFrame  implements ActionListener{
 		this.setBounds(100, 300, 500, 500);
 		
 		
-		north.setLayout(new GridLayout(1,1));
+		north.setLayout(new GridLayout(2,1));
 		north1.add(titleLB);
 		north.add(north1);
+		north.add(north2);
 		
 		north1.setBackground(Color.LIGHT_GRAY);
 		center1.setLayout(new GridLayout(1,3));
-		center1.add(chicken);
-		center1.add(pizza);
-		center1.add(cafe);
 		
-		south.add(logout);
+		north2.add(chicken);
+		north2.add(pizza);
+		north2.add(cafe);
+		
+		center.add(center1);
 		south.add(blist);
 		south.add(basket);
+		south.add(logout);
 		
-		
+		center2.setLayout(new BorderLayout());
+		center2.add(shopList,"West");
+		center2_1.setLayout(new GridLayout(2,1));
+		center2_1.add(shopinfo);
+		center2_1.add(buy);
+		center2.add(center2_1,"Center");
 		
 		
 		
 		this.add(south, "South");
-		this.add(center1, "Center");;
+		this.add(center, "Center");;
 		this.add(north, "North");
+		
+		
+		chicken.addActionListener(this);
+		pizza.addActionListener(this);
+		cafe.addActionListener(this);
+		
+		logout.addActionListener(this);
+		blist.addActionListener(this);
+		basket.addActionListener(this);
+		
+		shopList.addItemListener(this);
+		buy.addActionListener(this);
+		
 	}
 	
 	
@@ -79,8 +127,77 @@ public class DelGUI extends JFrame  implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		Object temp= e.getSource();
+		if(temp.equals(logout)) {
+			closeFrame();
+			LoginGUI LGUI=new LoginGUI();
+			LGUI.viewFrame();
+		}else if(temp.equals(blist)) {
+			
+		}else if(temp.equals(basket)) {
+
+		}else if(temp.equals(chicken)) {
+			
+			this.remove(center);
+			this.add(center2, "Center");
+			String addr=DDAO.getAddr(id);
+			String kind="chicken";
+			ArrayList<Del_DTO> SList=DDAO.selAddr(addr,kind);
+			System.out.println(SList.get(0).getShop());
+			System.out.println(SList.size());
+			shopList.removeAll(); 
+			for(int i=0; i<SList.size(); i++) {
+				shopList.add(SList.get(i).getShop());
+			}
+
+			
+			this.repaint();   // 램에다가 화면을 다시 그려라.
+			this.setVisible(true);
+		}else if(temp.equals(pizza)) {
+			this.remove(center);
+			this.add(center2, "Center");
+			String addr=DDAO.getAddr(id);
+			String kind="pizza";
+			ArrayList<Del_DTO> SList=DDAO.selAddr(addr,kind);
+
+			shopList.removeAll(); 
+			for(Del_DTO w : SList) {
+				shopList.add(w.getShop()); //리스트에 항목 추가..
+			}
+			this.repaint();   // 램에다가 화면을 다시 그려라.
+			this.setVisible(true);
+		}else if(temp.equals(cafe)) {
+			this.remove(center);
+			this.add(center2, "Center");
+			String addr=DDAO.getAddr(id);
+			String kind="cafe";
+			ArrayList<Del_DTO> SList=DDAO.selAddr(addr,kind);
+
+			shopList.removeAll(); 
+			for(Del_DTO w : SList) {
+				shopList.add(w.getShop()); //리스트에 항목 추가..
+			}
+			this.repaint();   // 램에다가 화면을 다시 그려라.
+			this.setVisible(true);
+		}
 		
 	}
+	
+	public void itemStateChanged(ItemEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource().equals(shopList)) {
+			String shop = shopList.getSelectedItem();
+			
+			Del_DTO w = DDAO.selectOne(shop);
+			
+			shopinfo.setText("");
+			shopinfo.append("메뉴 : "+w.getFname()+"\n");
+			shopinfo.append("가격 : "+w.getPrice()+"\n");
+			shopinfo.append("주소 : "+w.getAddr()+"\n");
+			
+		}
+	}
+	
+	
 	
 }

@@ -88,7 +88,9 @@ public class LoginGUI extends JFrame implements ActionListener {
 	}
 	
 	
-	
+	public void viewFrame() {
+		this.setVisible(true);
+	}
 	public void closeFrame() {
 		this.setVisible(false);
 	}

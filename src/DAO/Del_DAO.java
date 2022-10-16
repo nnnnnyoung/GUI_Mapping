@@ -2,9 +2,16 @@ package DAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
-public class Del_DAO {
+import DTO.Del_DTO;
+
+
+public class Del_DAO  {
 	private Connection conn = null;
 	public Del_DAO(){   // 생성자
 		//예외.. 프로그램 실행 중에 발생하는 것.. 에러: 실행조차 안됨..
@@ -26,4 +33,92 @@ public class Del_DAO {
 			return false;
 		}
 	}
+	
+//	로그인 한 아이디의 주소 받아오기
+	
+	public String getAddr(String id) {
+		if(connect()) {
+			ResultSet rs=null;
+			
+			String sql="select addr from delmember where id=?";
+			try {
+				PreparedStatement s=conn.prepareStatement(sql);
+				s.setString(1, id);				
+				rs=s.executeQuery();
+				
+				if(rs.next()) {
+					String addr=rs.getString("addr");
+					conn.close();
+					return addr;
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+	
+	public ArrayList<Del_DTO> selAddr(String addr, String kind){ //로그인 한 아이디와 같은 지역에 있는 가게들만 출력하기
+			System.out.println(addr);
+			ResultSet rs=null;
+			ArrayList<Del_DTO> wlist = new ArrayList<>();
+			if(connect()) {
+				try {
+					String sql="select shop from food where addr=? and kind=?";
+					PreparedStatement s=conn.prepareStatement(sql);
+					s.setString(1, addr);	
+					s.setString(2, kind);		
+					rs=s.executeQuery();
+					if(rs.next()) {
+						Del_DTO w = new Del_DTO();
+						w.setShop(rs.getString("shop"));
+						wlist.add(w);
+					}
+					conn.close();
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			return wlist;
+
+		
+		
+		
+	}
+	public Del_DTO selectOne(String shop) {
+		// TODO Auto-generated method stub
+		ResultSet rs=null;
+		Del_DTO w = null;
+		if(connect()) {
+			try {
+				String sql="select * from food where shop=?";
+				PreparedStatement psmt = conn.prepareStatement(sql);
+				psmt.setString(1, shop);
+				rs = psmt.executeQuery();
+				if(rs.next()) {
+					w = new Del_DTO();
+					w.setKind(rs.getString("kind"));
+					w.setShop(rs.getString("shop"));
+					w.setFname(rs.getString("fname"));
+					w.setPrice(rs.getString("price"));
+					w.setAddr(rs.getString("addr"));
+				}
+				conn.close();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return w;
+	}
+	
+	
+	
+	
+	
 }
