@@ -12,6 +12,8 @@ import javax.swing.JTextField;
 
 import DAO.Join_DAO;
 import DTO.Join_DTO;
+import sign.CompleteGUI;
+import sign.OverlapGUI;
 
 public class JoinGUI extends JFrame implements ActionListener {
 	

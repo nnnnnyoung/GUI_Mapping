@@ -1,4 +1,4 @@
-package MemberMenu;
+package sign;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -9,21 +9,21 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class OverlapGUI extends JFrame implements ActionListener{
+public class Buy_Complete extends JFrame implements ActionListener {
 
 
 
-	JLabel overlap=new JLabel("아이디 중복!");
+	JLabel fail=new JLabel("주문완료");
 	JButton ok=new JButton("확인");
 	JPanel centerP=new JPanel();
 	JPanel centerP1=new JPanel();
 	JPanel centerP2=new JPanel();
 	
-	public OverlapGUI() {
+	public Buy_Complete() {
 		this.setBounds(270, 400, 200, 110);
 		
 		centerP.setLayout(new GridLayout(2,1));
-		centerP1.add(overlap);
+		centerP1.add(fail);
 		centerP2.add(ok);
 		
 		centerP.add(centerP1);

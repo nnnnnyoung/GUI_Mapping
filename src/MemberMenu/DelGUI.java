@@ -16,8 +16,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import DAO.Blist_DAO;
 import DAO.Del_DAO;
 import DTO.Del_DTO;
+import sign.Buy_Complete;
 
 
 
@@ -38,7 +40,7 @@ public class DelGUI extends JFrame  implements ActionListener,ItemListener{
 	JButton pizza=new JButton("피자");
 	JButton cafe=new JButton("카페");
 	
-	
+	String sName=null;
 	
 	
 	JLabel center_null=new JLabel("가게가 없어요ㅠ0ㅠ");
@@ -47,12 +49,13 @@ public class DelGUI extends JFrame  implements ActionListener,ItemListener{
 	JPanel south=new JPanel();
 	JButton logout=new JButton("로그아웃");
 	JButton blist=new JButton("주문내역");
-	JButton basket=new JButton("장바구니");
+
 	
 	JButton buy=new JButton("주문하기");
 	
 	String id=null; //로그인 한 아이디 받아오기
 	Del_DAO DDAO=new Del_DAO();
+	Blist_DAO BDAO=new Blist_DAO();
 	
 	
 	List shopList = new List(10);
@@ -81,14 +84,14 @@ public class DelGUI extends JFrame  implements ActionListener,ItemListener{
 		
 		center.add(center1);
 		south.add(blist);
-		south.add(basket);
+
 		south.add(logout);
 		
 		center2.setLayout(new BorderLayout());
 		center2.add(shopList,"West");
 		center2_1.setLayout(new GridLayout(2,1));
 		center2_1.add(shopinfo);
-		center2_1.add(buy);
+
 		center2.add(center2_1,"Center");
 		
 		
@@ -104,7 +107,7 @@ public class DelGUI extends JFrame  implements ActionListener,ItemListener{
 		
 		logout.addActionListener(this);
 		blist.addActionListener(this);
-		basket.addActionListener(this);
+
 		
 		shopList.addItemListener(this);
 		buy.addActionListener(this);
@@ -134,28 +137,27 @@ public class DelGUI extends JFrame  implements ActionListener,ItemListener{
 			LGUI.viewFrame();
 		}else if(temp.equals(blist)) {
 			
-		}else if(temp.equals(basket)) {
-
 		}else if(temp.equals(chicken)) {
 			
 			this.remove(center);
 			this.add(center2, "Center");
+			center2_1.removeAll();
 			String addr=DDAO.getAddr(id);
+			
 			String kind="chicken";
 			ArrayList<Del_DTO> SList=DDAO.selAddr(addr,kind);
-			System.out.println(SList.get(0).getShop());
-			System.out.println(SList.size());
 			shopList.removeAll(); 
+			shopinfo.removeAll();
 			for(int i=0; i<SList.size(); i++) {
 				shopList.add(SList.get(i).getShop());
 			}
 
-			
 			this.repaint();   // 램에다가 화면을 다시 그려라.
 			this.setVisible(true);
 		}else if(temp.equals(pizza)) {
 			this.remove(center);
 			this.add(center2, "Center");
+			center2_1.removeAll();
 			String addr=DDAO.getAddr(id);
 			String kind="pizza";
 			ArrayList<Del_DTO> SList=DDAO.selAddr(addr,kind);
@@ -179,6 +181,23 @@ public class DelGUI extends JFrame  implements ActionListener,ItemListener{
 			}
 			this.repaint();   // 램에다가 화면을 다시 그려라.
 			this.setVisible(true);
+		}else if(temp.equals(buy)) {
+			System.out.println(sName);
+			
+			
+			
+			BDAO.buy(sName, id);
+			Buy_Complete bc=new Buy_Complete();
+			bc.viewFrame();
+			
+
+		}else if(temp.equals(blist)) {
+			
+			
+			
+			
+			this.repaint();   // 램에다가 화면을 다시 그려라.
+			this.setVisible(true);
 		}
 		
 	}
@@ -195,6 +214,11 @@ public class DelGUI extends JFrame  implements ActionListener,ItemListener{
 			shopinfo.append("가격 : "+w.getPrice()+"\n");
 			shopinfo.append("주소 : "+w.getAddr()+"\n");
 			
+			
+			center2_1.add(shopinfo);
+			center2_1.add(buy);
+			sName=shop;
+			this.repaint(); 			
 		}
 	}
 	

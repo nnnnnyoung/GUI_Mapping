@@ -1,4 +1,4 @@
-package MemberMenu;
+package sign;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -9,21 +9,21 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class CompleteGUI extends JFrame implements ActionListener{
+public class Login_Fail extends JFrame implements ActionListener {
 
 
 
-	JLabel complete=new JLabel("회원가입을 축하합니다!");
+	JLabel fail=new JLabel("로그인 실패");
 	JButton ok=new JButton("확인");
 	JPanel centerP=new JPanel();
 	JPanel centerP1=new JPanel();
 	JPanel centerP2=new JPanel();
 	
-	public CompleteGUI() {
+	public Login_Fail() {
 		this.setBounds(270, 400, 200, 110);
 		
 		centerP.setLayout(new GridLayout(2,1));
-		centerP1.add(complete);
+		centerP1.add(fail);
 		centerP2.add(ok);
 		
 		centerP.add(centerP1);

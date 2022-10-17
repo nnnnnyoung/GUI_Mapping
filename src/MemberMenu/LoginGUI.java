@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import DAO.Login_DAO;
+import sign.Login_Fail;
 
 public class LoginGUI extends JFrame implements ActionListener {
 
