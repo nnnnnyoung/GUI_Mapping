@@ -5,7 +5,14 @@ public class Del_DTO {
 	String kind=null;
 	String shop=null;
 	String fname=null;
-	String price=null;
+	int price;
+	
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
 	String addr=null;
 	
 	public String getKind() {
@@ -26,12 +33,7 @@ public class Del_DTO {
 	public void setFname(String fname) {
 		this.fname = fname;
 	}
-	public String getPrice() {
-		return price;
-	}
-	public void setPrice(String price) {
-		this.price = price;
-	}
+
 	public String getAddr() {
 		return addr;
 	}

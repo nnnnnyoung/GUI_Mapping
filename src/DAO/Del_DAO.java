@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import DTO.Del_DTO;
@@ -61,7 +60,7 @@ public class Del_DAO  {
 	}
 	
 	public ArrayList<Del_DTO> selAddr(String addr, String kind){ //로그인 한 아이디와 같은 지역에 있는 가게들만 출력하기
-			System.out.println(addr);
+
 			ResultSet rs=null;
 			ArrayList<Del_DTO> wlist = new ArrayList<>();
 			if(connect()) {
@@ -70,13 +69,18 @@ public class Del_DAO  {
 					PreparedStatement s=conn.prepareStatement(sql);
 					s.setString(1, addr);	
 					s.setString(2, kind);		
+					
+
 					rs=s.executeQuery();
-					if(rs.next()) {
+					
+					while(rs.next()) {
 						Del_DTO w = new Del_DTO();
 						w.setShop(rs.getString("shop"));
 						wlist.add(w);
 					}
 					conn.close();
+					
+
 					
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -85,10 +89,9 @@ public class Del_DAO  {
 			}
 			return wlist;
 
-		
-		
-		
 	}
+	
+
 	public Del_DTO selectOne(String shop) {
 		// TODO Auto-generated method stub
 		ResultSet rs=null;
@@ -104,7 +107,7 @@ public class Del_DAO  {
 					w.setKind(rs.getString("kind"));
 					w.setShop(rs.getString("shop"));
 					w.setFname(rs.getString("fname"));
-					w.setPrice(rs.getString("price"));
+					w.setPrice(rs.getInt("price"));
 					w.setAddr(rs.getString("addr"));
 				}
 				conn.close();
@@ -117,7 +120,7 @@ public class Del_DAO  {
 		return w;
 	}
 	
-
+	
 	
 	
 	

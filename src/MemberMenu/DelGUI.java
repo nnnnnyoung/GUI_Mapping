@@ -25,7 +25,10 @@ import sign.Buy_Complete;
 
 
 public class DelGUI extends JFrame  implements ActionListener,ItemListener{
-
+	Del_DAO DDAO=new Del_DAO();
+	Blist_DAO BDAO=new Blist_DAO();
+	
+	
 	JPanel north=new JPanel();
 	JPanel north1=new JPanel();
 	JPanel north2=new JPanel();
@@ -42,7 +45,6 @@ public class DelGUI extends JFrame  implements ActionListener,ItemListener{
 	
 	String sName=null;
 	
-	
 	JLabel center_null=new JLabel("가게가 없어요ㅠ0ㅠ");
 	
 	
@@ -54,9 +56,7 @@ public class DelGUI extends JFrame  implements ActionListener,ItemListener{
 	JButton buy=new JButton("주문하기");
 	
 	String id=null; //로그인 한 아이디 받아오기
-	Del_DAO DDAO=new Del_DAO();
-	Blist_DAO BDAO=new Blist_DAO();
-	
+
 	
 	List shopList = new List(10);
 	JTextArea shopinfo = new JTextArea(10,3);
@@ -136,7 +136,8 @@ public class DelGUI extends JFrame  implements ActionListener,ItemListener{
 			LoginGUI LGUI=new LoginGUI();
 			LGUI.viewFrame();
 		}else if(temp.equals(blist)) {
-			
+			BlistGUI listGUI=new BlistGUI(id, BDAO);
+			listGUI.viewFrame();
 		}else if(temp.equals(chicken)) {
 			
 			this.remove(center);
@@ -148,6 +149,7 @@ public class DelGUI extends JFrame  implements ActionListener,ItemListener{
 			ArrayList<Del_DTO> SList=DDAO.selAddr(addr,kind);
 			shopList.removeAll(); 
 			shopinfo.removeAll();
+			System.out.println(SList.size());
 			for(int i=0; i<SList.size(); i++) {
 				shopList.add(SList.get(i).getShop());
 			}
@@ -184,20 +186,11 @@ public class DelGUI extends JFrame  implements ActionListener,ItemListener{
 		}else if(temp.equals(buy)) {
 			System.out.println(sName);
 			
-			
-			
 			BDAO.buy(sName, id);
 			Buy_Complete bc=new Buy_Complete();
 			bc.viewFrame();
 			
 
-		}else if(temp.equals(blist)) {
-			
-			
-			
-			
-			this.repaint();   // 램에다가 화면을 다시 그려라.
-			this.setVisible(true);
 		}
 		
 	}
@@ -213,7 +206,6 @@ public class DelGUI extends JFrame  implements ActionListener,ItemListener{
 			shopinfo.append("메뉴 : "+w.getFname()+"\n");
 			shopinfo.append("가격 : "+w.getPrice()+"\n");
 			shopinfo.append("주소 : "+w.getAddr()+"\n");
-			
 			
 			center2_1.add(shopinfo);
 			center2_1.add(buy);

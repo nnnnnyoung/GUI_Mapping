@@ -1,13 +1,22 @@
 package DTO;
 
 public class BlistDTO {
+	int bnum;
+	
+
 	String id=null; //회원의 아이디
 	String shop=null;
 	String fname=null; //음식이름
 	int price;
-
 	String addr=null;
 	int indate;
+	
+	public int getBnum() {
+		return bnum;
+	}
+	public void setBnum(int bnum) {
+		this.bnum = bnum;
+	}
 	public String getId() {
 		return id;
 	}
