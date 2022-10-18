@@ -1,15 +1,13 @@
 package DTO;
 
 public class BlistDTO {
-	int bnum;
-	
-
-	String id=null; //회원의 아이디
-	String shop=null;
-	String fname=null; //음식이름
-	int price;
-	String addr=null;
-	int indate;
+	private int bnum;
+	private String id=null; //회원의 아이디
+	private String shop=null;
+	private String fname=null; //음식이름
+	private int price;
+	private String addr=null;
+	private String indate;
 	
 	public int getBnum() {
 		return bnum;
@@ -48,10 +46,10 @@ public class BlistDTO {
 	public void setAddr(String addr) {
 		this.addr = addr;
 	}
-	public int getIndate() {
+	public String getIndate() {
 		return indate;
 	}
-	public void setIndate(int indate) {
+	public void setIndate(String indate) {
 		this.indate = indate;
 	}
 	

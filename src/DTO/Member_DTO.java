@@ -1,12 +1,12 @@
 package DTO;
 
-public class Join_DTO {
+public class Member_DTO {
 
 	
-	String id=null;
-	String pw=null;
-	String name=null;
-	String addr=null;
+	private String id=null;
+	private String pw=null;
+	private String name=null;
+	private String addr=null;
 	
 	
 	public String getId() {

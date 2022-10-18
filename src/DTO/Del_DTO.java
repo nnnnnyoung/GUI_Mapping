@@ -2,10 +2,12 @@ package DTO;
 
 public class Del_DTO {
 	
-	String kind=null;
-	String shop=null;
-	String fname=null;
-	int price;
+	private String kind=null;
+	private String shop=null;
+	private String fname=null;
+	private int price;
+	private String addr=null;
+	
 	
 	public int getPrice() {
 		return price;
@@ -13,8 +15,6 @@ public class Del_DTO {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	String addr=null;
-	
 	public String getKind() {
 		return kind;
 	}

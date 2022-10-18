@@ -10,42 +10,38 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import DAO.Join_DAO;
-import DTO.Join_DTO;
+import DAO.Member_DAO;
+import DTO.Member_DTO;
 import sign.CompleteGUI;
 import sign.OverlapGUI;
 
 public class JoinGUI extends JFrame implements ActionListener {
 	
-	Join_DAO JDAO=new Join_DAO();
+	private Member_DAO JDAO=new Member_DAO();
 	
+	private JPanel northP=new JPanel();
+	private JPanel northP1=new JPanel();
+	private JLabel titleLB= new JLabel("회원가입");
 	
+	private JPanel centerP=new JPanel();
+	private JPanel centerP1=new JPanel();
+	private JPanel centerP2=new JPanel();
+	private JPanel centerP3=new JPanel();
+	private JPanel centerP4=new JPanel();
 	
-	JPanel northP=new JPanel();
-	JPanel northP1=new JPanel();
-	JLabel titleLB= new JLabel("회원가입");
+	private JLabel idLB=new JLabel(" ID ");
+	private JLabel pwLB=new JLabel("비밀번호 ");
+	private JLabel nameLB=new JLabel("이  름      ");
+	private JLabel addrLB=new JLabel("주  소      ");
 	
-	JPanel centerP=new JPanel();
-	JPanel centerP1=new JPanel();
-	JPanel centerP2=new JPanel();
-	JPanel centerP3=new JPanel();
-	JPanel centerP4=new JPanel();
-	
-	JLabel idLB=new JLabel(" ID ");
-	JLabel pwLB=new JLabel("비밀번호 ");
-	JLabel nameLB=new JLabel("이  름      ");
-	JLabel addrLB=new JLabel("주  소      ");
-	
-	JTextField idInput=new JTextField(10);
-	JTextField pwInput=new JTextField(10);
-	JTextField nameInput=new JTextField(10);
-	JTextField addrInput=new JTextField(10);
-	
-
-	
-	JPanel southP=new JPanel();
-	JButton join= new JButton("가입");
-	JButton exit=new JButton("종료");
+	private JTextField idInput=new JTextField(10);
+	private JTextField pwInput=new JTextField(10);
+	private JTextField nameInput=new JTextField(10);
+	private JTextField addrInput=new JTextField(10);
+		
+	private	JPanel southP=new JPanel();
+	private	JButton join= new JButton("가입");
+	private	JButton exit=new JButton("종료");
 		
 	public JoinGUI(){
 		
@@ -115,7 +111,7 @@ public class JoinGUI extends JFrame implements ActionListener {
 			
 			
 			
-			Join_DTO JDTO=new Join_DTO();
+			Member_DTO JDTO=new Member_DTO();
 			
 			
 			

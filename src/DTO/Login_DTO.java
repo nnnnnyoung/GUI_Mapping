@@ -1,8 +1,8 @@
 package DTO;
 
 public class Login_DTO {
-	String id=null;
-	String pw=null;
+	private String id=null;
+	private String pw=null;
 	public String getId() {
 		return id;
 	}

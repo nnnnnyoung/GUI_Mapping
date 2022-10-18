@@ -90,7 +90,35 @@ public class Del_DAO  {
 			return wlist;
 
 	}
-	
+	public ArrayList<Del_DTO> getShop(){ //로그인 한 아이디와 같은 지역에 있는 가게들만 출력하기
+
+		ResultSet rs=null;
+		ArrayList<Del_DTO> wlist = new ArrayList<>();
+		if(connect()) {
+			try {
+				String sql="select shop from food";
+				PreparedStatement s=conn.prepareStatement(sql);
+				
+
+				rs=s.executeQuery();
+				
+				while(rs.next()) {
+					Del_DTO w = new Del_DTO();
+					w.setShop(rs.getString("shop"));
+					wlist.add(w);
+				}
+				conn.close();
+				
+
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return wlist;
+
+}
 
 	public Del_DTO selectOne(String shop) {
 		// TODO Auto-generated method stub
@@ -118,6 +146,25 @@ public class Del_DAO  {
 			}
 		}
 		return w;
+	}
+	public void modiShop(String sName, String fname, int price) {
+
+		if(connect()) {
+			String sql="update food set fname=? , price=? where shop=?";
+			try {
+				PreparedStatement p=conn.prepareStatement(sql);
+				p.setString(1,fname);
+				p.setInt(2,price);
+				p.setString(3,sName);
+				int r=p.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+		}
+		
 	}
 	
 	

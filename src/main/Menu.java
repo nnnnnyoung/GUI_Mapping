@@ -10,19 +10,20 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import ManagerMenu.MLoginGUI;
 import MemberMenu.LoginGUI;
 
 public class Menu extends JFrame implements ActionListener{
 	
-	JPanel North=new JPanel();
-	JLabel NorthLB=new JLabel("안녕하세요 배달 슝슝==3 입니다 ^*^");
+	private JPanel North=new JPanel();
+	private JLabel NorthLB=new JLabel("안녕하세요 배달 슝슝==3 입니다 ^*^");
 	
-	JPanel centerP=new JPanel();
-	JPanel centerP1=new JPanel();
-	JPanel centerP2=new JPanel();
+	private JPanel centerP=new JPanel();
+	private JPanel centerP1=new JPanel();
+	private JPanel centerP2=new JPanel();
 	
-	JButton member=new JButton("회원 모드");
-	JButton manager=new JButton("관리자 모드");
+	private JButton member=new JButton("회원 모드");
+	private JButton manager=new JButton("관리자 모드");
 	
 	public Menu() {
 		
@@ -57,7 +58,8 @@ public class Menu extends JFrame implements ActionListener{
 			LGUI.viewFrame();
 			this.setVisible(false);
 		}else if(temp.equals(manager)) {
-			
+			MLoginGUI MGUI=new MLoginGUI();
+			MGUI.viewFrame();
 		}
 		
 	}

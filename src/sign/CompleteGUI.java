@@ -13,11 +13,11 @@ public class CompleteGUI extends JFrame implements ActionListener{
 
 
 
-	JLabel complete=new JLabel("회원가입을 축하합니다!");
-	JButton ok=new JButton("확인");
-	JPanel centerP=new JPanel();
-	JPanel centerP1=new JPanel();
-	JPanel centerP2=new JPanel();
+	private	JLabel complete=new JLabel("회원가입을 축하합니다!");
+	private	JButton ok=new JButton("확인");
+	private	JPanel centerP=new JPanel();
+	private	JPanel centerP1=new JPanel();
+	private	JPanel centerP2=new JPanel();
 	
 	public CompleteGUI() {
 		this.setBounds(270, 400, 200, 110);

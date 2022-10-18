@@ -13,11 +13,11 @@ public class OverlapGUI extends JFrame implements ActionListener{
 
 
 
-	JLabel overlap=new JLabel("아이디 중복입니다.");
-	JButton ok=new JButton("확인");
-	JPanel centerP=new JPanel();
-	JPanel centerP1=new JPanel();
-	JPanel centerP2=new JPanel();
+	private	JLabel overlap=new JLabel("아이디 중복입니다.");
+	private	JButton ok=new JButton("확인");
+	private	JPanel centerP=new JPanel();
+	private	JPanel centerP1=new JPanel();
+	private	JPanel centerP2=new JPanel();
 	
 	public OverlapGUI() {
 		this.setBounds(270, 400, 200, 110);

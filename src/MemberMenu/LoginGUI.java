@@ -16,31 +16,31 @@ import sign.Login_Fail;
 
 public class LoginGUI extends JFrame implements ActionListener {
 
-	JoinGUI JOIN=new JoinGUI();
+	private	JoinGUI JOIN=new JoinGUI();
 	
-	Login_DAO LOGIN=new Login_DAO();
+	private	Login_DAO LOGIN=new Login_DAO();
 	
 	
 	
-	JPanel north=new JPanel();
-	JPanel north1=new JPanel();
-	JLabel titleLB= new JLabel("배달슝슝==3");
+	private	JPanel north=new JPanel();
+	private	JPanel north1=new JPanel();
+	private	JLabel titleLB= new JLabel("배달슝슝==3");
 	
-	JLabel idLB= new JLabel("      ID      "); //로그인창 아이디
-	JLabel pwLB= new JLabel("비밀번호"); //로그인 창 pw
-	JTextField idInput=new JTextField(10);  //로그인창 아이디 입력
-	JTextField pwInput=new JTextField(10);//로그인창 pw 입력
+	private	JLabel idLB= new JLabel("      ID      "); //로그인창 아이디
+	private	JLabel pwLB= new JLabel("비밀번호"); //로그인 창 pw
+	private	JTextField idInput=new JTextField(10);  //로그인창 아이디 입력
+	private	JTextField pwInput=new JTextField(10);//로그인창 pw 입력
 	
-	JPanel center=new JPanel();
-	JPanel center_idP=new JPanel();
-	JPanel center_pwP=new JPanel();
+	private	JPanel center=new JPanel();
+	private	JPanel center_idP=new JPanel();
+	private	JPanel center_pwP=new JPanel();
 	
-	JButton login =new JButton("로그인");
-	JButton join=new JButton("회원가입");
-	JButton exit=new JButton("종료");
+	private	JButton login =new JButton("로그인");
+	private	JButton join=new JButton("회원가입");
+	private	JButton exit=new JButton("종료");
 
 	
-	JPanel southP=new JPanel();
+	private	JPanel southP=new JPanel();
 
 	
 	public LoginGUI() {
@@ -118,7 +118,7 @@ public class LoginGUI extends JFrame implements ActionListener {
 			JOIN.viewFrame();
 			
 		}else if(temp.equals(exit)) {
-			System.exit(0);
+			closeFrame();
 		}
 		
 	}

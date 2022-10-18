@@ -13,11 +13,11 @@ public class Buy_Complete extends JFrame implements ActionListener {
 
 
 
-	JLabel fail=new JLabel("주문완료");
-	JButton ok=new JButton("확인");
-	JPanel centerP=new JPanel();
-	JPanel centerP1=new JPanel();
-	JPanel centerP2=new JPanel();
+	private	JLabel fail=new JLabel("주문완료");
+	private	JButton ok=new JButton("확인");
+	private	JPanel centerP=new JPanel();
+	private	JPanel centerP1=new JPanel();
+	private	JPanel centerP2=new JPanel();
 	
 	public Buy_Complete() {
 		this.setBounds(270, 400, 200, 110);

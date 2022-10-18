@@ -25,41 +25,36 @@ import sign.Buy_Complete;
 
 
 public class DelGUI extends JFrame  implements ActionListener,ItemListener{
-	Del_DAO DDAO=new Del_DAO();
-	Blist_DAO BDAO=new Blist_DAO();
+	private Del_DAO DDAO=new Del_DAO();
+	private Blist_DAO BDAO=new Blist_DAO();
 	
 	
-	JPanel north=new JPanel();
-	JPanel north1=new JPanel();
-	JPanel north2=new JPanel();
-	JLabel titleLB= new JLabel("배달슝슝==3");
+	private JPanel north=new JPanel();
+	private JPanel north1=new JPanel();
+	private JPanel north2=new JPanel();
+	private JLabel titleLB= new JLabel("배달슝슝==3");
 	
-	JPanel center=new JPanel();
-	JPanel center1=new JPanel();
-	JPanel center2=new JPanel();
-	JPanel center2_1=new JPanel();
+	private JPanel center=new JPanel();
+	private JPanel center1=new JPanel();
+	private JPanel center2=new JPanel();
+	private JPanel center2_1=new JPanel();
 	
-	JButton chicken=new JButton("치킨");
-	JButton pizza=new JButton("피자");
-	JButton cafe=new JButton("카페");
+	private JButton chicken=new JButton("치킨");
+	private JButton pizza=new JButton("피자");
+	private JButton cafe=new JButton("카페");
 	
-	String sName=null;
+	private String sName=null;
 	
-	JLabel center_null=new JLabel("가게가 없어요ㅠ0ㅠ");
-	
-	
-	JPanel south=new JPanel();
-	JButton logout=new JButton("로그아웃");
-	JButton blist=new JButton("주문내역");
+	private JPanel south=new JPanel();
+	private JButton logout=new JButton("로그아웃");
+	private JButton blist=new JButton("주문내역");
 
 	
-	JButton buy=new JButton("주문하기");
+	private JButton buy=new JButton("주문하기");
 	
-	String id=null; //로그인 한 아이디 받아오기
-
-	
-	List shopList = new List(10);
-	JTextArea shopinfo = new JTextArea(10,3);
+	private String id=null; //로그인 한 아이디 받아오기
+	private List shopList = new List(10);
+	private JTextArea shopinfo = new JTextArea(10,3);
 	
 	public DelGUI(String id) {
 		this.id=id;
@@ -149,11 +144,11 @@ public class DelGUI extends JFrame  implements ActionListener,ItemListener{
 			ArrayList<Del_DTO> SList=DDAO.selAddr(addr,kind);
 			shopList.removeAll(); 
 			shopinfo.removeAll();
-			System.out.println(SList.size());
+
 			for(int i=0; i<SList.size(); i++) {
 				shopList.add(SList.get(i).getShop());
 			}
-
+			
 			this.repaint();   // 램에다가 화면을 다시 그려라.
 			this.setVisible(true);
 		}else if(temp.equals(pizza)) {
@@ -184,8 +179,6 @@ public class DelGUI extends JFrame  implements ActionListener,ItemListener{
 			this.repaint();   // 램에다가 화면을 다시 그려라.
 			this.setVisible(true);
 		}else if(temp.equals(buy)) {
-			System.out.println(sName);
-			
 			BDAO.buy(sName, id);
 			Buy_Complete bc=new Buy_Complete();
 			bc.viewFrame();

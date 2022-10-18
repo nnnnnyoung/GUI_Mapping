@@ -7,12 +7,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import DTO.Join_DTO;
+import javax.swing.JFrame;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
-public class Join_DAO {
+import DTO.Member_DTO;
+
+public class Member_DAO extends JFrame{
 	
 	private Connection conn = null;
-	public Join_DAO(){   // 생성자
+	public Member_DAO(){   // 생성자
 		//예외.. 프로그램 실행 중에 발생하는 것.. 에러: 실행조차 안됨..
 		try {
 			// 1. 드라이버 로딩(필요한 클래스를 자바로 로드)
@@ -33,7 +37,7 @@ public class Join_DAO {
 		}
 	}
 	
-	public void newmember(Join_DTO j) {
+	public void newmember(Member_DTO j) {
 		if(connect()) {
 			String sql="insert into delmember values(?,?,?,?)";
 			try {
@@ -76,6 +80,32 @@ public class Join_DAO {
 		return 2;
 		
 	}
+	
+	public DefaultTableModel select(){        // 테이블에 보이기 위해 검색
+         if(connect()) {
+        	String colNames[] = {"id","pw","name","addr"};
+        	DefaultTableModel model = new DefaultTableModel(colNames, 0); 
+    		ResultSet rs=null;
+    		String sql="select * from delmember";
+    		try {
+				Statement s=conn.createStatement();
+				rs=s.executeQuery(sql);
+				while(rs.next()) {
+					model.addRow(new Object[]{rs.getString("id"),rs.getString("pw"),
+                             rs.getString("name"),rs.getString("addt")});
+				}
+				return model;
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    		
+    		
+    		
+    	}
+         return null;
+    }
+
 	
 	
 }
