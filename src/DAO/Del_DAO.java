@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import DTO.Del_DTO;
 
 
@@ -165,6 +167,27 @@ public class Del_DAO  {
 			
 		}
 		
+	}
+	public void inputShop(Del_DTO newShop) {
+		if(connect()) {
+			String sql="insert into food values(?,?,?,?,?)";
+			try {
+				PreparedStatement p=conn.prepareStatement(sql);
+				p.setString(1, newShop.getKind());
+				p.setString(2, newShop.getShop());
+				p.setString(3, newShop.getFname());
+				p.setInt(4, newShop.getPrice());
+				p.setString(5,newShop.getAddr() );
+				
+				int r=p.executeUpdate();
+				
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
 	}
 	
 	

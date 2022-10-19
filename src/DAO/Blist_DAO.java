@@ -45,8 +45,6 @@ public class Blist_DAO {
 				p.setString(1, shop);
 				rs=p.executeQuery();
 				
-
-								
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

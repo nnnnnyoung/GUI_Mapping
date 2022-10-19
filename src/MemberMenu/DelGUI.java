@@ -13,16 +13,13 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import DAO.Blist_DAO;
 import DAO.Del_DAO;
 import DTO.Del_DTO;
-import sign.Buy_Complete;
-
-
-
 
 public class DelGUI extends JFrame  implements ActionListener,ItemListener{
 	private Del_DAO DDAO=new Del_DAO();
@@ -33,6 +30,7 @@ public class DelGUI extends JFrame  implements ActionListener,ItemListener{
 	private JPanel north1=new JPanel();
 	private JPanel north2=new JPanel();
 	private JLabel titleLB= new JLabel("배달슝슝==3");
+
 	
 	private JPanel center=new JPanel();
 	private JPanel center1=new JPanel();
@@ -48,8 +46,6 @@ public class DelGUI extends JFrame  implements ActionListener,ItemListener{
 	private JPanel south=new JPanel();
 	private JButton logout=new JButton("로그아웃");
 	private JButton blist=new JButton("주문내역");
-
-	
 	private JButton buy=new JButton("주문하기");
 	
 	private String id=null; //로그인 한 아이디 받아오기
@@ -62,7 +58,7 @@ public class DelGUI extends JFrame  implements ActionListener,ItemListener{
 	
 	public void GUI() {
 		this.setVisible(true);
-		this.setBounds(100, 300, 500, 500);
+		this.setBounds(300, 300, 500, 500);
 		
 		
 		north.setLayout(new GridLayout(2,1));
@@ -72,6 +68,7 @@ public class DelGUI extends JFrame  implements ActionListener,ItemListener{
 		
 		north1.setBackground(Color.LIGHT_GRAY);
 		center1.setLayout(new GridLayout(1,3));
+		
 		
 		north2.add(chicken);
 		north2.add(pizza);
@@ -108,21 +105,11 @@ public class DelGUI extends JFrame  implements ActionListener,ItemListener{
 		buy.addActionListener(this);
 		
 	}
-	
-	
-	
-	
-	
-
 	// gui 실행시키는 메서드
-	
-	
 	public void closeFrame() {
 		this.setVisible(false);
 	}
-	
-	
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object temp= e.getSource();
@@ -180,8 +167,7 @@ public class DelGUI extends JFrame  implements ActionListener,ItemListener{
 			this.setVisible(true);
 		}else if(temp.equals(buy)) {
 			BDAO.buy(sName, id);
-			Buy_Complete bc=new Buy_Complete();
-			bc.viewFrame();
+			JOptionPane.showMessageDialog(this, "주문완료");
 			
 
 		}

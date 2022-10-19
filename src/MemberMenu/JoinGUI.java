@@ -7,13 +7,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import DAO.Member_DAO;
 import DTO.Member_DTO;
-import sign.CompleteGUI;
-import sign.OverlapGUI;
 
 public class JoinGUI extends JFrame implements ActionListener {
 	
@@ -45,7 +44,7 @@ public class JoinGUI extends JFrame implements ActionListener {
 		
 	public JoinGUI(){
 		
-		this.setBounds(200, 300, 400, 400);
+		this.setBounds(300, 300, 400, 400);
 		
 		northP1.add(titleLB);
 		northP.add(northP1);
@@ -116,8 +115,7 @@ public class JoinGUI extends JFrame implements ActionListener {
 			
 			
 			if(JDAO.checkId(id)==1) {
-				OverlapGUI Over=new OverlapGUI();
-				Over.viewFrame();
+				JOptionPane.showMessageDialog(this, "아이디 중복입니다.");
 			}else if(JDAO.checkId(id)==0){
 				JDTO.setId(id);
 				JDTO.setPw(pw);
@@ -126,8 +124,7 @@ public class JoinGUI extends JFrame implements ActionListener {
 				
 				JDAO.newmember(JDTO);
 				
-				CompleteGUI Com=new CompleteGUI();
-				Com.viewFrame();
+				JOptionPane.showMessageDialog(this, "회원가입을 축하합니다!");
 				idInput.setText("");
 				nameInput.setText("");
 				pwInput.setText("");

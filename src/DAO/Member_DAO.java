@@ -9,6 +9,7 @@ import java.sql.Statement;
 
 import javax.swing.JFrame;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
 
 import DTO.Member_DTO;
@@ -81,31 +82,69 @@ public class Member_DAO extends JFrame{
 		
 	}
 	
-	public DefaultTableModel select(){        // 테이블에 보이기 위해 검색
-         if(connect()) {
-        	String colNames[] = {"id","pw","name","addr"};
-        	DefaultTableModel model = new DefaultTableModel(colNames, 0); 
-    		ResultSet rs=null;
-    		String sql="select * from delmember";
-    		try {
+	public void prtM(DefaultTableModel model) {
+		if(connect()) {
+			String sql ="select * from delmember";
+			ResultSet rs=null;
+			try {
 				Statement s=conn.createStatement();
 				rs=s.executeQuery(sql);
 				while(rs.next()) {
-					model.addRow(new Object[]{rs.getString("id"),rs.getString("pw"),
-                             rs.getString("name"),rs.getString("addt")});
+					String id=rs.getString("id");
+					String name=rs.getString("name");
+					String pw=rs.getString("pw");
+		        	String addr=rs.getString("addr");
+		                
+		                // Object[]을 만들어 저장하여 model에 추가하면 JTable에서 결과를 확인 가능
+		        	Object data[]= {id,pw,name,addr};
+		            model.addRow(data); 
 				}
-				return model;
+				conn.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-    		
-    		
-    		
-    	}
-         return null;
-    }
+		}
+	}
+	public boolean searsh(String sh, JTextArea addrSh) {
+		if(connect()) {
+			
+			ResultSet rs=null;
+			String sql="select id,name,addr from delmember where addr=?";
+			try {
+				PreparedStatement s=conn.prepareStatement(sql);
+				s.setString(1, sh);
+				rs=s.executeQuery();
+				
+				if (rs.next()){
+					addrSh.append("\n");
+					addrSh.append("ID : "+rs.getString("id")+"\n");
+					addrSh.append("이름 : "+rs.getString("name")+"\n");
+					addrSh.append("주소 : "+rs.getString("addr")+"\n");
+					addrSh.append("---------------------------");
+					
+					while(rs.next()) {
+						addrSh.append("\n");
+						addrSh.append("ID : "+rs.getString("id")+"\n");
+						addrSh.append("이름 : "+rs.getString("name")+"\n");
+						addrSh.append("주소 : "+rs.getString("addr")+"\n");
+						addrSh.append("---------------------------");
+						
+					}
+					return true;
+				}else {
+					return false;
+				}
 
+			
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		return false;
+	}
 	
 	
 }

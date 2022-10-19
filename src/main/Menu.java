@@ -27,7 +27,7 @@ public class Menu extends JFrame implements ActionListener{
 	
 	public Menu() {
 		
-		this.setBounds(100, 200, 300, 400);
+		this.setBounds(300, 200, 300, 400);
 		centerP1.add(member);
 		centerP2.add(manager);
 		centerP.setLayout(new GridLayout(2,1));
@@ -56,7 +56,7 @@ public class Menu extends JFrame implements ActionListener{
 		if(temp.equals(member)) {
 			LoginGUI LGUI=new LoginGUI();
 			LGUI.viewFrame();
-			this.setVisible(false);
+		
 		}else if(temp.equals(manager)) {
 			MLoginGUI MGUI=new MLoginGUI();
 			MGUI.viewFrame();
