@@ -131,8 +131,10 @@ public class Member_DAO extends JFrame{
 						addrSh.append("---------------------------");
 						
 					}
+					conn.close();
 					return true;
 				}else {
+					conn.close();
 					return false;
 				}
 
@@ -144,6 +146,21 @@ public class Member_DAO extends JFrame{
 			
 		}
 		return false;
+	}
+	public void dropM(Object valueAt) {
+		if(connect()) {
+			String sql="delete from delmember where id=?";
+			try {
+				PreparedStatement p=conn.prepareStatement(sql);
+				p.setString(1, (String) valueAt);
+				int r=p.executeUpdate();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 	}
 	
 	

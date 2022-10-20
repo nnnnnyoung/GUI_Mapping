@@ -102,7 +102,8 @@ public class Blist_DAO {
 			ArrayList<BlistDTO> blist =new ArrayList<>();
 			
 			ResultSet rs=null;
-			String sql="select bnum from blist where indate >= to_char(sysdate-7,'yyyymmdd') and id=? order by bnum desc";
+			String sql="select bnum from blist where indate >= to_char(sysdate-7,'yyyymmdd') "
+					+ "and id=? order by bnum desc";
 			try {
 				PreparedStatement p=conn.prepareStatement(sql);
 				p.setString(1, id);
@@ -129,7 +130,8 @@ public class Blist_DAO {
 			ArrayList<BlistDTO> blist =new ArrayList<>();
 			
 			ResultSet rs=null;
-			String sql="select bnum from blist where indate >= to_char(sysdate-30,'yyyymmdd') and id=? order by bnum desc";
+			String sql="select bnum from blist where indate >= to_char(sysdate-30,'yyyymmdd') "
+					+ "and id=? order by bnum desc";
 			try {
 				PreparedStatement p=conn.prepareStatement(sql);
 				p.setString(1, id);
@@ -157,7 +159,8 @@ public class Blist_DAO {
 		if(connect()) {
 
 			try {
-				String sql="select shop,fname,price,addr,to_char(indate,'mm-dd-yyyy hh24:mi') from blist where bnum=?";
+				String sql="select shop,fname,price,addr,to_char(indate,'mm-dd-yyyy hh24:mi') "
+						+ "from blist where bnum=?";
 				PreparedStatement psmt = conn.prepareStatement(sql);
 				psmt.setInt(1, Integer.decode(bnum));
 				rs = psmt.executeQuery();
@@ -184,7 +187,8 @@ public class Blist_DAO {
 	public boolean fiveMi(String id, int bno ) {
 		if(connect()) {
 			ResultSet rs =null;
-			String sql="SELECT bnum FROM blist WHERE indate >= TO_CHAR(SYSDATE-5/(24*60),'YYYYMMDDHH24:MI:SS') and id=? and bnum=?";
+			String sql="SELECT bnum FROM blist WHERE indate >= TO_CHAR(SYSDATE-5/(24*60),"
+					+ "'YYYYMMDDHH24:MI:SS') and id=? and bnum=?";
 			try {
 				PreparedStatement p=conn.prepareStatement(sql);
 				p.setString(1, id);
@@ -217,6 +221,33 @@ public class Blist_DAO {
 			
 		}
 		
+	}
+	public int time(String id, String bnum, int time) {
+		if(connect()) {
+			int bno=Integer.parseInt(bnum);
+			ResultSet rs=null;
+			String sql="SELECT to_char(SYSDATE,'MI')- to_char(indate,'MI') "
+					+ "FROM blist WHERE indate >= TO_CHAR(SYSDATE-40/(24*60),'YYYYMMDDHH24:MI:SS') "
+					+ "and id=? and bnum=?";
+			try {
+				PreparedStatement p=conn.prepareStatement(sql);
+				p.setString(1, id);
+				p.setInt(2, bno);
+				rs=p.executeQuery();
+				if(rs.next()) {
+					time=40-rs.getInt("TO_CHAR(SYSDATE,'MI')-TO_CHAR(INDATE,'MI')");
+					if(time>=60) {
+						time-=60;
+					}
+					return time;
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		return time;
 	}
 	
 	

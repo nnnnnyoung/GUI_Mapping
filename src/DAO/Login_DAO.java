@@ -38,15 +38,13 @@ public class Login_DAO {
 				ptmt.setString(1, id);
 				ptmt.setString(2, pw);
 				rs=ptmt.executeQuery();
-				
-				while(rs.next()) {
+				//select문을 쓸때에는 결과값을 담을 ResultSet 객체가 필요하다.
+				while(rs.next()) { //.next() 메소드는 while문이 다 돌고 나면 더이상 다음이 없다. 다시 쓸 수 없다.
 					conn.close();
-					return 1 ;//1이면 로그인
-					
-							
+					return 1 ;//로그인 성공시 1을 리턴
 				}
 				conn.close();
-				return 0; //0이면 로그인 실패
+				return 0; //로그인 실패시 0을 리턴
 				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

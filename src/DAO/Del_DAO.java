@@ -42,12 +42,13 @@ public class Del_DAO  {
 			ResultSet rs=null;
 			
 			String sql="select addr from delmember where id=?";
+			//회원의 주소를 가져오기 위한 쿼리문
 			try {
 				PreparedStatement s=conn.prepareStatement(sql);
 				s.setString(1, id);				
 				rs=s.executeQuery();
 				
-				if(rs.next()) {
+				if(rs.next()) { //id는 pk이므로 결과값은 최대 1개이다. 따라서 while문이 아닌 if문을 사용
 					String addr=rs.getString("addr");
 					conn.close();
 					return addr;
@@ -61,18 +62,17 @@ public class Del_DAO  {
 		return null;
 	}
 	
-	public ArrayList<Del_DTO> selAddr(String addr, String kind){ //로그인 한 아이디와 같은 지역에 있는 가게들만 출력하기
-
+	public ArrayList<Del_DTO> selAddr(String addr, String kind){ 		
 			ResultSet rs=null;
 			ArrayList<Del_DTO> wlist = new ArrayList<>();
 			if(connect()) {
 				try {
 					String sql="select shop from food where addr=? and kind=?";
+					//로그인 한 아이디와 같은 지역에 있는 가게들만 출력하기
 					PreparedStatement s=conn.prepareStatement(sql);
 					s.setString(1, addr);	
-					s.setString(2, kind);		
+					s.setString(2, kind);
 					
-
 					rs=s.executeQuery();
 					
 					while(rs.next()) {
@@ -81,8 +81,6 @@ public class Del_DAO  {
 						wlist.add(w);
 					}
 					conn.close();
-					
-
 					
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -100,8 +98,6 @@ public class Del_DAO  {
 			try {
 				String sql="select shop from food";
 				PreparedStatement s=conn.prepareStatement(sql);
-				
-
 				rs=s.executeQuery();
 				
 				while(rs.next()) {
@@ -110,17 +106,13 @@ public class Del_DAO  {
 					wlist.add(w);
 				}
 				conn.close();
-				
-
-				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		return wlist;
-
-}
+	}
 
 	public Del_DTO selectOne(String shop) {
 		// TODO Auto-generated method stub
@@ -129,10 +121,11 @@ public class Del_DAO  {
 		if(connect()) {
 			try {
 				String sql="select * from food where shop=?";
+				//가게의 정보를 가져오기위한 메서드 
 				PreparedStatement psmt = conn.prepareStatement(sql);
 				psmt.setString(1, shop);
 				rs = psmt.executeQuery();
-				if(rs.next()) {
+				if(rs.next()) { //가게 이름은 pk이기때문에 while문이 아닌if문 사용
 					w = new Del_DTO();
 					w.setKind(rs.getString("kind"));
 					w.setShop(rs.getString("shop"));
@@ -150,7 +143,7 @@ public class Del_DAO  {
 		return w;
 	}
 	public void modiShop(String sName, String fname, int price) {
-
+		//가게 내용을 수정하기 위한 메서드, 주소와 가게이름은 수정하기 못하고 음식이름과 가격만 수정가능하게 설정함
 		if(connect()) {
 			String sql="update food set fname=? , price=? where shop=?";
 			try {
@@ -162,14 +155,12 @@ public class Del_DAO  {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-			
-			
-		}
-		
+			}			
+		}		
 	}
 	public void inputShop(Del_DTO newShop) {
 		if(connect()) {
+			//가게를 새로 등록하기 위한 메서드 입력한 정보가 food 테이블에 insert 된다.
 			String sql="insert into food values(?,?,?,?,?)";
 			try {
 				PreparedStatement p=conn.prepareStatement(sql);
@@ -186,13 +177,6 @@ public class Del_DAO  {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
 		}
 	}
-	
-	
-	
-	
-	
-	
 }
