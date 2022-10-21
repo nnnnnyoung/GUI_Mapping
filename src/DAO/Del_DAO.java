@@ -7,8 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
-
 import DTO.Del_DTO;
 
 
@@ -132,6 +130,10 @@ public class Del_DAO  {
 					w.setFname(rs.getString("fname"));
 					w.setPrice(rs.getInt("price"));
 					w.setAddr(rs.getString("addr"));
+					
+					w.setAllscore(rs.getDouble("allscore"));
+					w.setInputscore(rs.getDouble("inputscore"));
+					w.setScore(rs.getDouble("score"));
 				}
 				conn.close();
 				
@@ -161,7 +163,7 @@ public class Del_DAO  {
 	public void inputShop(Del_DTO newShop) {
 		if(connect()) {
 			//가게를 새로 등록하기 위한 메서드 입력한 정보가 food 테이블에 insert 된다.
-			String sql="insert into food values(?,?,?,?,?)";
+			String sql="insert into food values(?,?,?,?,?,default,default,default)";
 			try {
 				PreparedStatement p=conn.prepareStatement(sql);
 				p.setString(1, newShop.getKind());
@@ -178,5 +180,31 @@ public class Del_DAO  {
 				e.printStackTrace();
 			}
 		}
+	}
+	public void inputScore(String sName, String score) {
+		if(connect()) {
+			String sql="update food set inputscore=inputscore+1, allscore=allscore+? where shop=?";
+			try {
+				PreparedStatement p=conn.prepareStatement(sql);
+				p.setInt(1,Integer.parseInt(score));
+				p.setString(2,sName);
+				int r=p.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			String sql2="update food set score=(allscore/inputscore) where shop=?";
+			try {
+				PreparedStatement p=conn.prepareStatement(sql2);
+				p.setString(1,sName);
+				int r=p.executeUpdate();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+					
+		}
+		
 	}
 }

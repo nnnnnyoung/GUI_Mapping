@@ -139,6 +139,7 @@ public class DelGUI extends JFrame  implements ActionListener,ItemListener{
 			this.remove(center);
 			this.add(center2, "Center");
 			center2_1.removeAll();
+			center2_1.removeAll();
 			String addr=DDAO.getAddr(id);
 			String kind="pizza";
 			ArrayList<Del_DTO> SList=DDAO.selAddr(addr,kind);
@@ -181,6 +182,14 @@ public class DelGUI extends JFrame  implements ActionListener,ItemListener{
 			shopinfo.append("메뉴 : "+w.getFname()+"\n");//append 문자열 합치기 메서드를 사용하여 Area내용을 셋팅
 			shopinfo.append("가격 : "+w.getPrice()+"\n");
 			shopinfo.append("주소 : "+w.getAddr()+"\n");
+			
+			System.out.println(w.getScore());
+			if(w.getScore()==0) {
+				shopinfo.append("등록된 평점이 없습니다.");
+			}else {
+				shopinfo.append("평점 : "+w.getScore()+"\n");
+			}
+			
 			
 			center2_1.add(shopinfo); //가게 이름 클릭시 가게 정보가 center2_1에 셋팅
 			center2_1.add(buy);//가게 이름 클릭시 구매버튼이  center2_1에 셋팅

@@ -162,6 +162,24 @@ public class Member_DAO extends JFrame{
 		}
 		
 	}
+	public void ModiM(Member_DTO modiM) {
+		if(connect()) {
+			String sql="update delmember set pw=?,name=?,addr=? where id=?";
+			try {
+				PreparedStatement p=conn.prepareStatement(sql);
+				p.setString(1, modiM.getPw());
+				p.setString(2, modiM.getName());
+				p.setString(3, modiM.getAddr());
+				p.setString(4, modiM.getId());
+				int r=p.executeUpdate();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+	}
 	
 	
 }

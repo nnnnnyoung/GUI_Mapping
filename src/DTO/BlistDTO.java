@@ -9,6 +9,7 @@ public class BlistDTO {
 	private String addr=null;
 	private String indate;
 	
+	
 	public int getBnum() {
 		return bnum;
 	}

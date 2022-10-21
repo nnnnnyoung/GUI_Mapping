@@ -7,8 +7,28 @@ public class Del_DTO {
 	private String fname=null;
 	private int price;
 	private String addr=null;
+	private double score;
+	private double  inputscore;
+	private double allscore;
 	
-	
+	public double getAllscore() {
+		return allscore;
+	}
+	public void setAllscore(double allscore) {
+		this.allscore = allscore;
+	}
+	public double getInputscore() {
+		return inputscore;
+	}
+	public void setInputscore(double inputscore) {
+		this.inputscore = inputscore;
+	}
+	public double getScore() {
+		return score;
+	}
+	public void setScore(double score) {
+		this.score = score;
+	}
 	public int getPrice() {
 		return price;
 	}
